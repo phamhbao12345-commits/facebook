@@ -639,39 +639,50 @@
       color: var(--text-muted);
     }
 
-    /* Tabs Navigation */
+    /* Segmented Control Pill Tabs */
     .tabs-nav {
-      display: flex;
-      gap: 12px;
+      display: inline-flex;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 5px;
+      border-radius: 14px;
+      gap: 6px;
       margin-bottom: 24px;
-      border-bottom: 1px solid var(--card-border);
-      padding-bottom: 8px;
+      max-width: 540px;
+      width: 100%;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
     }
 
     .tab-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      font-size: 15px;
+      flex: 1 1 0;
+      text-align: center;
+      padding: 9px 18px;
+      border-radius: 10px;
+      font-size: 13.5px;
       font-weight: 600;
-      padding: 10px 18px;
-      border-radius: 8px;
-      cursor: pointer;
+      color: var(--text-muted);
       transition: var(--transition);
+      cursor: pointer;
+      border: none;
+      background: transparent;
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
+      white-space: nowrap;
     }
 
     .tab-btn:hover {
-      color: var(--text-main);
+      color: #ffffff;
       background: rgba(255, 255, 255, 0.05);
     }
 
     .tab-btn.active {
-      color: #60a5fa;
-      background: rgba(59, 130, 246, 0.15);
-      border-bottom: 2px solid var(--primary);
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
     }
 
     .tab-pane {
