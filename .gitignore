@@ -1,0 +1,26 @@
+# Thư mục phụ thuộc
+node_modules/
+
+# Tệp cấu hình bí mật môi trường
+.env
+
+# Tệp lưu trữ cookie Facebook nhạy cảm
+fb_cookies.json
+
+# Dữ liệu phiên duyệt web tự động hóa (Puppeteer user data)
+.browser_session/
+
+# File nhật ký hoạt động
+*.log
+
+# Thư mục lưu ảnh chụp màn hình sự cố
+screenshots/
+
+# Dữ liệu tài khoản Facebook & tác vụ cục bộ (BẢO MẬT NHẠY CẢM)
+src/config/accounts.json
+src/config/tasks.json
+src/config/my_groups.json
+
+# Tệp hệ thống
+.DS_Store
+Thumbs.db

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Facebook Group Mock Environment</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+    body {
+      background-color: #f0f2f5;
+      color: #050505;
+      line-height: 1.5;
+    }
+    /* Facebook Header giả lập */
+    header {
+      background-color: #ffffff;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo {
+      width: 40px;
+      height: 40px;
+      background: #1877f2;
+      border-radius: 50%;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 24px;
+    }
+    .search-bar {
+      background-color: #f0f2f5;
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 14px;
+      color: #65676b;
+      width: 240px;
+    }
+    .header-badge {
+      background-color: #e4e6eb;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #050505;
+    }
+    /* Container chính */
+    .container {
+      max-width: 680px;
+      margin: 20px auto;
+      padding: 0 16px 80px 16px;
+    }
+    /* Group Banner */
+    .group-banner {
+      background: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    .group-cover {
+      height: 140px;
+      background: linear-gradient(135deg, #1877f2 0%, #00c6ff 100%);
+      display: flex;
+      align-items: flex-end;
+      padding: 16px;
+      color: white;
+    }
+    .group-info {
+      padding: 16px;
+    }
+    .group-title {
+      font-size: 20px;
+      font-weight: 700;
+    }
+    .group-subtitle {
+      font-size: 14px;
+      color: #65676b;
+    }
+    /* Khung soạn thảo bài viết */
+    .composer-card {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    .composer-header {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e4e6eb;
+    }
+    /* Post Box theo đúng đặc tả yêu cầu */
+    #post-box {
+      border: 1px solid #ccc;
+      min-height: 80px;
+      padding: 10px;
+      border-radius: 6px;
+      outline: none;
+      font-size: 15px;
+      background: #fafafa;
+    }
+    #post-box:focus {
+      border-color: #1877f2;
+      background: #ffffff;
+    }
+    #post-box:empty:before {
+      content: attr(aria-label);
+      color: #65676b;
+      pointer-events: none;
+    }
+    /* Nút đăng bài theo đúng đặc tả yêu cầu */
+    #btn-post {
+      margin-top: 10px;
+      padding: 8px 16px;
+      background-color: #1877f2;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.2s;
+    }
+    #btn-post:hover {
+      background-color: #166fe5;
+    }
+    #btn-post:active {
+      background-color: #1464cc;
+    }
+    /* Khu vực trạng thái thông báo */
+    #status-msg {
+      margin-top: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px;
+      border-radius: 6px;
+      display: none;
+    }
+    #status-msg.success {
+      display: block;
+      background-color: #e7f3ff;
+      color: #1877f2;
+      border: 1px solid #cce4ff;
+    }
+    /* Danh sách bài viết tin tức giả lập */
+    .feed-item {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    .feed-author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #ccd0d5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #4b4f56;
+      font-size: 14px;
+    }
+    .feed-author-name {
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .feed-time {
+      font-size: 12px;
+      color: #65676b;
+    }
+    .feed-content {
+      font-size: 14px;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .feed-actions {
+      display: flex;
+      border-top: 1px solid #e4e6eb;
+      padding-top: 8px;
+      gap: 8px;
+    }
+    /* Nút Thích giả lập để phục vụ kiểm thử warmup session */
+    .like-button {
+      flex: 1;
+      padding: 8px;
+      background: none;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #65676b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .like-button:hover {
+      background: #f2f2f2;
+    }
+    .like-button.liked {
+      color: #1877f2;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Facebook Giả lập -->
+  <header>
+    <div class="header-left">
+      <div class="logo">f</div>
+      <div class="search-bar">Tìm kiếm trên Facebook Mock...</div>
+    </div>
+    <div class="header-badge">Môi Trường Thử Nghiệm Mock</div>
+  </header>
+
+  <div class="container">
+    <!-- Banner Nhóm Facebook -->
+    <div class="group-banner">
+      <div class="group-cover">
+        <h2>Cộng Đồng Tự Động Hóa & Lập Trình Node.js</h2>
+      </div>
+      <div class="group-info">
+        <div class="group-title">Nhóm Công Khai &bull; 15,200 thành viên</div>
+        <div class="group-subtitle">Môi trường giả lập chuẩn DOM Facebook phục vụ tự động hóa an toàn</div>
+      </div>
+    </div>
+
+    <!-- Khung tạo bài viết -->
+    <div class="composer-card">
+      <div class="composer-header">Tạo bài viết</div>
+      
+      <!-- Khung bài viết theo đúng yêu cầu đề bài -->
+      <div id="post-box" role="textbox" contenteditable="true" aria-label="Tạo bài viết công khai..." style="border: 1px solid #ccc; min-height: 80px; padding: 10px;"></div>
+      
+      <!-- Nút đăng bài theo đúng yêu cầu đề bài -->
+      <button id="btn-post" role="button" aria-label="Đăng" style="margin-top: 10px; padding: 8px 16px;">Đăng</button>
+      
+      <!-- Khu vực hiển thị thông báo trạng thái -->
+      <div id="status-msg"></div>
+    </div>
+
+    <!-- Các bài viết giả lập trên bảng tin để cuộn trang và tương tác like -->
+    <div class="feed-item">
+      <div class="feed-author">
+        <div class="avatar">NV</div>
+        <div>
+          <div class="feed-author-name">Nguyễn Văn An</div>
+          <div class="feed-time">2 giờ trước &bull; Công khai</div>
+        </div>
+      </div>
+      <div class="feed-content">
+        Chào mừng anh em đến với nhóm! Hãy cùng nhau chia sẻ các giải pháp tự động hóa Puppeteer và tối ưu tài nguyên nhé.
+      </div>
+      <div class="feed-actions">
+        <button class="like-button" role="button" aria-label="Thích" onclick="toggleLike(this)">👍 Thích</button>
+      </div>
+    </div>
+
+    <div class="feed-item">
+      <div class="feed-author">
+        <div class="avatar">TL</div>
+        <div>
+          <div class="feed-author-name">Trần Linh</div>
+          <div class="feed-time">5 giờ trước &bull; Công khai</div>
+        </div>
+      </div>
+      <div class="feed-content">
+        Có bạn nào đã tích hợp thành công Gemini SDK mới nhất vào hệ thống Puppeteer Self-Healing chưa? Cần tư vấn kinh nghiệm!
+      </div>
+      <div class="feed-actions">
+        <button class="like-button" role="button" aria-label="Thích" onclick="toggleLike(this)">👍 Thích</button>
+      </div>
+    </div>
+
+    <div class="feed-item">
+      <div class="feed-author">
+        <div class="avatar">QH</div>
+        <div>
+          <div class="feed-author-name">Quốc Huy</div>
+          <div class="feed-time">1 ngày trước &bull; Công khai</div>
+        </div>
+      </div>
+      <div class="feed-content">
+        Tối ưu RAM khi chạy Puppeteer trên VPS yếu: Luôn sử dụng cờ --single-process, --no-sandbox và chặn tải image/font!
+      </div>
+      <div class="feed-actions">
+        <button class="like-button" role="button" aria-label="Thích" onclick="toggleLike(this)">👍 Thích</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Xử lý sự kiện bấm nút Đăng bài
+    const postBox = document.getElementById('post-box');
+    const btnPost = document.getElementById('btn-post');
+    const statusMsg = document.getElementById('status-msg');
+
+    btnPost.addEventListener('click', function () {
+      const content = (postBox.innerText || postBox.textContent || '').trim();
+      if (!content) {
+        statusMsg.className = 'success';
+        statusMsg.style.borderColor = '#faad14';
+        statusMsg.style.color = '#d48806';
+        statusMsg.style.backgroundColor = '#fffbe6';
+        statusMsg.textContent = 'Cảnh báo: Nội dung bài viết đang để trống!';
+        return;
+      }
+
+      // Cập nhật trạng thái thành công
+      statusMsg.className = 'success';
+      statusMsg.style.borderColor = '#cce4ff';
+      statusMsg.style.color = '#1877f2';
+      statusMsg.style.backgroundColor = '#e7f3ff';
+      statusMsg.textContent = 'Bài viết đã được đăng thành công!';
+      
+      // Xóa nội dung khung soạn thảo sau khi đăng thành công
+      postBox.innerText = '';
+    });
+
+    // Hàm tương tác nút Thích giả lập
+    function toggleLike(btn) {
+      if (btn.classList.contains('liked')) {
+        btn.classList.remove('liked');
+        btn.innerHTML = '👍 Thích';
+      } else {
+        btn.classList.add('liked');
+        btn.innerHTML = '👍 Đã thích';
+      }
+    }
+  </script>
+</body>
+</html>

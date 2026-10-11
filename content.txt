@@ -1,0 +1,2 @@
+Chào mọi người! Đây là bài viết được đăng tự động bằng tool Facebook Group Auto-Poster.
+Hệ thống sử dụng Puppeteer Stealth kết hợp Gemini 2.5 Flash để tự động nhận diện và đăng bài an toàn! 🚀🔥
