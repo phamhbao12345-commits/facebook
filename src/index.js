@@ -23,9 +23,13 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Phục vụ giao diện tĩnh từ thư mục public/
+// Phục vụ giao diện tĩnh từ thư mục public/ (Tắt cache để điện thoại luôn nhận CSS mới nhất)
 const publicDir = path.resolve(__dirname, '../public');
-app.use(express.static(publicDir));
+app.use(express.static(publicDir, {
+  setHeaders: (res) => {
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  }
+}));
 
 // Đăng ký API routes
 app.use('/api', apiRoutes);
