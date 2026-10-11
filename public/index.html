@@ -221,38 +221,65 @@
     /* Stats Overview Cards */
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-      gap: 16px;
-      margin-bottom: 28px;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 14px;
+      margin-bottom: 24px;
     }
 
     .stat-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: var(--radius);
-      padding: 18px 20px;
+      padding: 16px 18px;
       transition: var(--transition);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
     }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .stat-card:nth-child(1)::before { background: #3b82f6; }
+    .stat-card:nth-child(2)::before { background: #8b5cf6; }
+    .stat-card:nth-child(3)::before { background: #f59e0b; }
+    .stat-card:nth-child(4)::before { background: #60a5fa; }
+    .stat-card:nth-child(5)::before { background: #10b981; }
+    .stat-card:nth-child(6)::before { background: #ef4444; }
 
     .stat-card:hover {
       border-color: rgba(59, 130, 246, 0.4);
       transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
     }
 
     .stat-label {
-      font-size: 13px;
+      font-size: 12.5px;
       color: var(--text-muted);
       font-weight: 500;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .stat-value {
       font-size: 26px;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--text-main);
+      letter-spacing: -0.02em;
     }
 
     .stat-val-pending { color: var(--warning); }
