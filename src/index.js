@@ -14,6 +14,8 @@ const express = require('express');
 const { CONFIG } = require('./config/env');
 const apiRoutes = require('./routes/api');
 const { startScheduler, stopScheduler } = require('./services/scheduler.service');
+const { startAutoSyncWatcher } = require('./services/autoSync.service');
+const fs = require('fs');
 
 const app = express();
 
@@ -66,6 +68,11 @@ async function main() {
     // 2. Kích hoạt Scheduler Service chạy ngầm tự động quét hàng đợi mỗi 30 giây
     startScheduler(30000);
     console.log('[System] Vòng lặp Scheduler đang chạy ngầm liên tục 24/7 để theo dõi lịch trình.');
+
+    // 3. Kích hoạt Auto-Sync Watcher tự động đẩy code lên GitHub khi lưu file (trên máy cá nhân)
+    if (!process.env.RENDER && fs.existsSync(path.resolve(__dirname, '../.git'))) {
+      startAutoSyncWatcher();
+    }
     console.log('[System] Nhấn Ctrl+C để dừng máy chủ bất cứ lúc nào.\n');
 
     // 3. Đăng ký xử lý tắt hệ thống an toàn (Graceful Shutdown)

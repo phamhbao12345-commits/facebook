@@ -21,6 +21,7 @@ src/config/accounts.json
 src/config/tasks.json
 src/config/my_groups.json
 
-# Tệp hệ thống
+# Tệp hệ thống & GitHub Actions cục bộ
 .DS_Store
 Thumbs.db
+.github/
